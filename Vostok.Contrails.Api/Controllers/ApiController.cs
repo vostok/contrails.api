@@ -27,7 +27,7 @@ namespace Vostok.Contrails.Api.Controllers
         [Route("api/findTrace")]
         public async Task<TracesByIdResponce> TracesById(Guid traceId, [Bind(Prefix = "fromTs")] DateTimeOffset? fromTimestamp, Guid? fromSpan, [Bind(Prefix = "toTs")]DateTimeOffset? toTimestamp, Guid? toSpan, int limit = 1000, bool ascending = true)
         {
-            if (id == Guid.Empty)
+            if (traceId == Guid.Empty)
                 return new TracesByIdResponce {TraceId = traceId, Spans = new Span[] {}};
             var spans = await contrailsClient.GetTracesById(traceId, fromTimestamp, fromSpan, toTimestamp, toSpan, ascending, limit);
             return new TracesByIdResponce { TraceId = traceId, Spans = spans };
