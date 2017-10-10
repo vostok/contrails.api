@@ -21,7 +21,7 @@ namespace Vostok.Contrails.Client
     public interface IContrailsClient
     {
         Task AddSpan(Span span);
-        Task<IEnumerable<Span>> GetTracesById(Guid traceId, int limit = 1000, Tuple<DateTimeOffset, Guid> offset = null);
+        Task<IEnumerable<Span>> GetTracesById(Guid traceId, DateTimeOffset? fromTimestamp, Guid? fromSpan, DateTimeOffset? toTimestamp, Guid? toSpan, bool ascending, int limit = 1000);
     }
 
     //public class TracesOffset
@@ -47,12 +47,23 @@ namespace Vostok.Contrails.Client
             await retryExecutionStrategy.ExecuteAsync(dataScheme.GetInsertStatement(span));
         }
 
-        public async Task<IEnumerable<Span>> GetTracesById(Guid traceId, int limit = 1000, Tuple<DateTimeOffset, Guid> offset = null)
+        public async Task<IEnumerable<Span>> GetTracesById(Guid traceId, DateTimeOffset? fromTimestamp, Guid? fromSpan, DateTimeOffset? toTimestamp, Guid? toSpan, bool ascending, int limit = 1000)
         {
             var query = dataScheme.Table.Where(x => x.TraceId == traceId);
-            if (offset != null)
-                query = query.Where(x => x.BeginTimestamp > offset.Item1 && x.SpanId.CompareTo(offset.Item2) > 0);
-            var spans = await query.OrderBy(x => x.BeginTimestamp).ThenBy(x => x.SpanId).Take(limit).ExecuteAsync();
+            if (fromTimestamp != null)
+            {
+                query = query.Where(x => x.BeginTimestamp > fromTimestamp);
+                if (fromSpan != null)
+                    query = query.Where(x => x.SpanId.CompareTo(fromSpan) > 0);
+            }
+            if (toTimestamp != null)
+            {
+                query = query.Where(x => x.BeginTimestamp < toTimestamp);
+                if (toSpan != null)
+                    query = query.Where(x => x.SpanId.CompareTo(toSpan) < 0);
+            }
+            query = ascending ? query.OrderBy(x => x.BeginTimestamp).ThenBy(x => x.SpanId) : query.OrderByDescending(x => x.BeginTimestamp).ThenByDescending(x => x.SpanId);
+            var spans = await query.Take(limit).ExecuteAsync();
             return spans.Select(x => new Span
             {
                 SpanId = x.SpanId,

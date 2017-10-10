@@ -29,17 +29,29 @@ namespace Vostok.Contrails.Client.Tests
         public void InsertData()
         {
             var dataScheme = DataScheme;
+            var traceId = Guid.NewGuid();
             var insertStatement = dataScheme.GetInsertStatement(
                 new Span
                 {
                     Annotations = new Dictionary<string, string> { ["key"] = "value" },
-                    TraceId = Guid.NewGuid(),
+                    TraceId = traceId,
                     SpanId = Guid.NewGuid(),
                     BeginTimestamp = DateTimeOffset.UtcNow,
                     EndTimestamp = DateTimeOffset.UtcNow.AddMinutes(10),
                     ParentSpanId = Guid.NewGuid()
                 });
-            Session.Value.Execute((IStatement) insertStatement);
+            var insertStatement2 = dataScheme.GetInsertStatement(
+                new Span
+                {
+                    Annotations = new Dictionary<string, string> { ["key"] = "value" },
+                    TraceId = traceId,
+                    SpanId = Guid.NewGuid(),
+                    BeginTimestamp = DateTimeOffset.UtcNow.AddMinutes(1),
+                    EndTimestamp = DateTimeOffset.UtcNow.AddMinutes(10),
+                    ParentSpanId = Guid.NewGuid()
+                });
+            Session.Value.Execute(insertStatement);
+            Session.Value.Execute(insertStatement2);
         }
     }
 }
