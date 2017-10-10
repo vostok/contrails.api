@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Vostok.Contrails.Client;
+using Vostok.Instrumentation.AspNetCore;
+using Vostok.Logging;
+using Vostok.Logging.Serilog;
 
 namespace Vostok.Contrails.Api
 {
@@ -17,9 +18,21 @@ namespace Vostok.Contrails.Api
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        private static IWebHost BuildWebHost(string[] args)
+        {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {Level} {Message:l} {Exception}{NewLine}{Properties}{NewLine}")
+                .CreateLogger();
+            return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel()
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", false, true);
+                })
+                .UseUrls("http://+:10623/")
                 .UseStartup<Startup>()
                 .Build();
+        }
     }
 }

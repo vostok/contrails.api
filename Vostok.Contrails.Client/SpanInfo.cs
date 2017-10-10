@@ -1,4 +1,5 @@
 ﻿using System;
+using Cassandra;
 
 namespace Vostok.Contrails.Client
 {
@@ -6,7 +7,7 @@ namespace Vostok.Contrails.Client
     public class SpanInfo
     {
         [Cassandra.Mapping.Attributes.Column("trace_id")]
-        [Cassandra.Mapping.Attributes.PartitionKey()]
+        [Cassandra.Mapping.Attributes.PartitionKey]
         public Guid TraceId { get; set; }
 
         [Cassandra.Mapping.Attributes.ClusteringKey]
@@ -25,10 +26,5 @@ namespace Vostok.Contrails.Client
 
         [Cassandra.Mapping.Attributes.Column("annotations")]
         public string Annotations { get; set; }
-
-        public static string GetTraceIdPrefix(Guid traceId)
-        {
-            return traceId.ToString("N").Substring(0, 8);
-        }
     }
 }
