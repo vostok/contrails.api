@@ -17,7 +17,7 @@ namespace Vostok.Contrails.Api
 {
     public class MetricContainer
     {
-        public ICounter RequestCounter { get; set; }
+        public ICounter SuccessCounter { get; set; }
         public ICounter ErrorCounter { get; set; }
     }
 
@@ -65,8 +65,8 @@ namespace Vostok.Contrails.Api
                     var metricScope = rootScope.WithTag("type","api");
                     return new MetricContainer
                     {
-                        RequestCounter = metricScope.Counter(10.Seconds(), "requests"),
-                        ErrorCounter = metricScope.Counter(10.Seconds(), "errors")
+                        SuccessCounter = metricScope.WithTag("status","200").Counter(10.Seconds(), "requests"),
+                        ErrorCounter = metricScope.WithTag("status", "500").Counter(10.Seconds(), "requests")
                     };
                 });
         }

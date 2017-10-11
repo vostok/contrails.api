@@ -31,15 +31,15 @@ namespace Vostok.Contrails.Api.Controllers
 
         [HttpGet]
         [Route("api/findTrace")]
-        public async Task<TracesByIdResponce> TracesById(Guid traceId, [Bind(Prefix = "fromTs")] DateTimeOffset? fromTimestamp, Guid? fromSpan, [Bind(Prefix = "toTs")]DateTimeOffset? toTimestamp, Guid? toSpan, int limit = 1000, bool ascending = true)
+        public async Task<TracesByIdResponce> TracesById(Guid traceId, [Bind(Prefix = "fromTs")] DateTimeOffset? fromTimestamp, Guid? fromSpan, [Bind(Prefix = "toTs")] DateTimeOffset? toTimestamp, Guid? toSpan, int limit = 1000, bool ascending = true)
         {
-            metricsContainer.RequestCounter.Add();
             try
             {
-	           if (traceId == Guid.Empty)
-	                return new TracesByIdResponce {TraceId = traceId, Spans = new Span[] {}};
-	            var spans = await contrailsClientFunc().GetTracesById(traceId, fromTimestamp, fromSpan, toTimestamp, toSpan, ascending, limit);
-	            return new TracesByIdResponce { TraceId = traceId, Spans = spans };
+                if (traceId == Guid.Empty)
+                    return new TracesByIdResponce {TraceId = traceId, Spans = new Span[] {}};
+                var spans = await contrailsClientFunc().GetTracesById(traceId, fromTimestamp, fromSpan, toTimestamp, toSpan, ascending, limit);
+                metricsContainer.SuccessCounter.Add();
+                return new TracesByIdResponce {TraceId = traceId, Spans = spans};
             }
             catch (Exception e)
             {
