@@ -59,10 +59,15 @@ namespace Vostok.Contrails.Api
                 };
             });
             services.AddSingleton(
-                x => new MetricContainer
+                x =>
                 {
-                    RequestCounter = x.GetService<IMetricScope>().Counter(10.Seconds(), "requests"),
-                    ErrorCounter = x.GetService<IMetricScope>().Counter(10.Seconds(), "errors")
+                    var rootScope = x.GetService<IMetricScope>();
+                    var metricScope = rootScope.WithTag("type","api");
+                    return new MetricContainer
+                    {
+                        RequestCounter = metricScope.Counter(10.Seconds(), "requests"),
+                        ErrorCounter = metricScope.Counter(10.Seconds(), "errors")
+                    };
                 });
         }
 
