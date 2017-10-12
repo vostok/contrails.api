@@ -13,7 +13,7 @@ COPY ./Vostok.Contrails.Api/appsettings.json /app/appsettings.json
 
 
 # build runtime image
-FROM microsoft/dotnet:2.0-runtime-jessie
+FROM microsoft/dotnet:2.0-sdk-jessie
 
 WORKDIR /app
 COPY --from=build-env /app ./
