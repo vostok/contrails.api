@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="CassandraCSharpDriver" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000175" />
+    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000250" />
   </ItemGroup>
 
 </Project>
