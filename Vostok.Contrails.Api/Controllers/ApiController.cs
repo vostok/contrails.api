@@ -30,6 +30,13 @@ namespace Vostok.Contrails.Api.Controllers
         }
 
         [HttpGet]
+        [Route("/")]
+        public string Root()
+        {
+            return "ContrailsApi is runnig";
+        }
+
+        [HttpGet]
         [Route("api/findTrace")]
         public async Task<TracesByIdResponce> TracesById(Guid traceId, [Bind(Prefix = "fromTs")] DateTimeOffset? fromTimestamp, Guid? fromSpan, [Bind(Prefix = "toTs")] DateTimeOffset? toTimestamp, Guid? toSpan, int limit = 1000, bool ascending = true)
         {

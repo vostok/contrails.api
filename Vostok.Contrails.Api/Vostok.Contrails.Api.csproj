@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" version="3.1.0" />
-    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000275" />
+    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000277" />
     <PackageReference Include="Vostok.Instrumentation.AspNetCore" Version="1.0.0-pre000103" />
     <PackageReference Include="Vostok.Logging.Serilog" Version="1.0.0-pre000103" />
   </ItemGroup>
