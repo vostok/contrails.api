@@ -30,7 +30,7 @@ namespace Vostok.Contrails.Api
                 {
                     config.AddJsonFile("appsettings.json", false, true);
                 })
-                .UseUrls("http://+:10623/")
+                .UseUrls("http://+:6302/")
                 .ConfigureAirlock()
                 .ConfigureVostokMetrics()
                 .ConfigureVostokLogging()
