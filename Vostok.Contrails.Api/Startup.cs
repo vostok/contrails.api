@@ -62,7 +62,7 @@ namespace Vostok.Contrails.Api
                 x =>
                 {
                     var rootScope = x.GetService<IMetricScope>();
-                    var metricScope = rootScope.WithTag("type","api");
+                    var metricScope = rootScope.WithTag(MetricsTagNames.Type,"api");
                     return new MetricContainer
                     {
                         SuccessCounter = metricScope.WithTag("status","200").Counter(10.Seconds(), "requests"),
