@@ -1,5 +1,4 @@
 ﻿using System;
-using Cassandra;
 
 namespace Vostok.Contrails.Client
 {

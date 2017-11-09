@@ -17,8 +17,8 @@ namespace Vostok.Contrails.Client
         private readonly ISession session;
         
         private readonly ILog log;
-        private const double MinDelayMultiplier = 1.7;
-        private const double MaxDelayMultiplier = 2.5;
+        private const double minDelayMultiplier = 1.7;
+        private const double maxDelayMultiplier = 2.5;
 
         public CassandraRetryExecutionStrategy(CassandraRetryExecutionStrategySettings settings, ILog log, ISession session)
         {
@@ -64,7 +64,7 @@ namespace Vostok.Contrails.Client
 
         private TimeSpan IncreaseDelay(TimeSpan delay)
         {
-            var multiplier = MinDelayMultiplier + ThreadSafeRandom.NextDouble() * (MaxDelayMultiplier - MinDelayMultiplier);
+            var multiplier = minDelayMultiplier + ThreadSafeRandom.NextDouble() * (maxDelayMultiplier - minDelayMultiplier);
             var increasedDelay = delay.Multiply(multiplier);
             return TimeSpanExtensions.Min(TimeSpanExtensions.Max(settings.CassandraSaveRetryMinDelay, increasedDelay), settings.CassandraSaveRetryMaxDelay);
         }

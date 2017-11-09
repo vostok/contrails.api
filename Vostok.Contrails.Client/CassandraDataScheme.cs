@@ -63,13 +63,13 @@ namespace Vostok.Contrails.Client
 
         public void CreateTableIfNotExists()
         {
-            var createQuery = string.Format(CreateTableQueryTemplate, TableName);
+            var createQuery = string.Format(createTableQueryTemplate, TableName);
             Session.Execute(createQuery);
         }
 
         private PreparedStatement PrepareInsert()
         {
-            var preparedQuery = string.Format(PreparedInsertTemplate, TableName);
+            var preparedQuery = string.Format(preparedInsertTemplate, TableName);
             var statement = Session.Prepare(preparedQuery);
             statement.SetIdempotence(true);
             return statement;
@@ -77,7 +77,7 @@ namespace Vostok.Contrails.Client
 
         #region Cassandra schemes and mapping
 
-        private const string PreparedInsertTemplate =
+        private const string preparedInsertTemplate =
             @"update {0} 
               set 
                 parent_span_id = ?,
@@ -88,7 +88,7 @@ namespace Vostok.Contrails.Client
                 span_id = ? and
                 begin_timestamp = ?";
 
-        private const string CreateTableQueryTemplate =
+        private const string createTableQueryTemplate =
             @"CREATE TABLE IF NOT EXISTS {0} (
     begin_timestamp timestamp,
     end_timestamp timestamp,

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Cassandra;
 using Cassandra.Data.Linq;
 using Newtonsoft.Json;
 using Vostok.Logging;

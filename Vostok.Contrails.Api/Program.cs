@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Vostok.Contrails.Client;
 using Vostok.Instrumentation.AspNetCore;
-using Vostok.Logging;
-using Vostok.Logging.Serilog;
 
 namespace Vostok.Contrails.Api
 {
