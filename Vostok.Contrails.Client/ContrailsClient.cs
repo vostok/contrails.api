@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cassandra;
 using Cassandra.Data.Linq;
 using Newtonsoft.Json;
 using Vostok.Logging;
+using Vostok.RetriableCall;
 using Vostok.Tracing;
 
 namespace Vostok.Contrails.Client
@@ -27,15 +29,18 @@ namespace Vostok.Contrails.Client
 
     public class ContrailsClient : IDisposable, IContrailsClient
     {
+        private readonly ILog log;
         private readonly ICassandraDataScheme dataScheme;
-        private readonly ICassandraRetryExecutionStrategy retryExecutionStrategy;
         private readonly CassandraSessionKeeper cassandraSessionKeeper;
         private readonly JsonSerializer jsonSerializer;
+        private readonly RetriableCallStrategy retriableCallStrategy;
 
         public ContrailsClient(ContrailsClientSettings settings, ILog log)
         {
+            this.log = log;
             cassandraSessionKeeper = new CassandraSessionKeeper(settings.CassandraNodes, settings.Keyspace);
-            retryExecutionStrategy = new CassandraRetryExecutionStrategy(settings.CassandraRetryExecutionStrategySettings, log, cassandraSessionKeeper.Session);
+            var executionStrategySettings = settings.CassandraRetryExecutionStrategySettings;
+            retriableCallStrategy = new RetriableCallStrategy(executionStrategySettings.CassandraSaveRetryMaxAttempts, executionStrategySettings.CassandraSaveRetryMinDelay, executionStrategySettings.CassandraSaveRetryMaxDelay);
             dataScheme = new CassandraDataScheme(cassandraSessionKeeper.Session);
             dataScheme.CreateTableIfNotExists();
             jsonSerializer = new JsonSerializer();
@@ -43,7 +48,11 @@ namespace Vostok.Contrails.Client
 
         public async Task AddSpan(Span span)
         {
-            await retryExecutionStrategy.ExecuteAsync(dataScheme.GetInsertStatement(span));
+            var statement = dataScheme.GetInsertStatement(span);
+            await retriableCallStrategy.CallAsync(
+                () => cassandraSessionKeeper.Session.ExecuteAsync(statement),
+                ex => ex is WriteTimeoutException || ex is NoHostAvailableException || ex is WriteFailureException,
+                log);
         }
 
         public async Task<IEnumerable<Span>> GetTracesById(Guid traceId, DateTimeOffset? fromTimestamp, Guid? fromSpan, DateTimeOffset? toTimestamp, Guid? toSpan, bool ascending, int limit = 1000)
