@@ -15,10 +15,6 @@ namespace Vostok.Contrails.Api
 
         private static IWebHost BuildWebHost(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {Level} {Message:l} {Exception}{NewLine}{Properties}{NewLine}")
-                .CreateLogger();
             return WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .ConfigureAppConfiguration((hostingContext, config) =>

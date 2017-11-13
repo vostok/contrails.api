@@ -35,8 +35,6 @@ namespace Vostok.Contrails.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var log = new SerilogLog(Log.Logger)
-                .WithFlowContext();
             services.Configure<ContrailsClientSettings>(options => Configuration.GetSection("ContrailsClient").Bind(options));
             services.AddMvc()
                 .AddJsonOptions(
@@ -46,6 +44,7 @@ namespace Vostok.Contrails.Api
                     });
             services.AddSingleton<Func<IContrailsClient>>(x =>
             {
+                var log = x.GetService<ILog>();
                 var configuration = x.GetService<IOptions<ContrailsClientSettings>>();
                 return () =>
                 {
@@ -65,21 +64,33 @@ namespace Vostok.Contrails.Api
                     var metricScope = rootScope.WithTag(MetricsTagNames.Type,"api");
                     return new MetricContainer
                     {
-                        SuccessCounter = metricScope.WithTag("status","200").Counter(10.Seconds(), "requests"),
-                        ErrorCounter = metricScope.WithTag("status", "500").Counter(10.Seconds(), "requests")
+                        SuccessCounter = metricScope.WithTag("status","200").Counter(FlushMetricsInterval, "requests"),
+                        ErrorCounter = metricScope.WithTag("status", "500").Counter(FlushMetricsInterval, "requests")
                     };
                 });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILog log)
         {
             if (env.EnvironmentName.Equals("dev", StringComparison.OrdinalIgnoreCase))
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
-            app.UseVostokLogging().UseVostokSystemMetrics(TimeSpan.FromSeconds(10));
+            app.UseVostokLogging().UseVostokSystemMetrics(FlushMetricsInterval);
+            log.Info("Configured app");
+        }
+
+        private TimeSpan FlushMetricsInterval
+        {
+            get
+            {
+                var flushMetricsInterval = Configuration.GetValue<TimeSpan>("FlushMetricsInterval");
+                if (flushMetricsInterval == TimeSpan.Zero)
+                    flushMetricsInterval = 1.Minutes();
+                return flushMetricsInterval;
+            }
         }
     }
 }
