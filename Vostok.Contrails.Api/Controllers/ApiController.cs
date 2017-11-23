@@ -49,7 +49,6 @@ namespace Vostok.Contrails.Api.Controllers
             catch (Exception e)
             {
                 metricsContainer.ErrorCounter.Add();
-                log.ForContext(this).Error(e);
                 throw;
             }
         }
