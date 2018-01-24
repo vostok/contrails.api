@@ -1,26 +1,81 @@
-version: '1.0.0-pre{build}'
+version: '0.0.0.{build}'
 image: Visual Studio 2017
 nuget:
   project_feed: true
   disable_publish_on_pr: true
 install:
   - ps: |
+      $branch = "$env:appveyor_repo_branch"
+      $prbranch = "$env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH"
+      echo "Branch: $branch; Pull request branch: $prbranch"
+      $branchstr = ""
+      if ($prbranch -ne "")
+      {
+        $branchstr = "-pr-$prbranch"
+      }
+      else
+      {
+        if ($branch -ne "master")
+        {
+          $branchstr = "-$branch"
+        }
+      }
       $zeroPaddedBuildNumber = [convert]::ToInt32($env:appveyor_build_number, 10).ToString("000000")
-      Update-AppveyorBuild -Version "1.0.0-pre$zeroPaddedBuildNumber"
-      $xmlPath = "$env:appveyor_build_folder\Vostok.Contrails.Client\Vostok.Contrails.Client.csproj"
-      $xml = [xml](get-content $xmlPath)
+      Update-AppveyorBuild -Version "0.0.0.$zeroPaddedBuildNumber$branchstr".Replace("_", "-")
+      $csprojs = $env:appveyor_build_folder | Get-ChildItem -Recurse -Filter "*.csproj"
+      foreach($csproj in $csprojs)
+      {
+        $name = $csproj.BaseName
+        $xmlPath = "$env:appveyor_build_folder\$name\$name.csproj"
+        $xml = [xml](Get-Content $xmlPath)
+        $props = $xml.SelectSingleNode("//PropertyGroup")
+        if ($props)
+        {
+          echo "Generating version $env:appveyor_build_version for $name"
       $version = $xml.CreateElement("Version")
       $versionText = $xml.CreateTextNode($env:appveyor_build_version)
       $version.AppendChild($versionText)
-      $xml.Project.PropertyGroup.AppendChild($version)
+          $props.AppendChild($version)
       $xml.Save($xmlPath)
-  - dotnet restore
+        }
+      }
+      cd $env:appveyor_build_folder\..
+      git clone https://github.com/vostok/cement.git
+      cd "cement"
+      nuget restore
+      msbuild Cement.Net.sln
+
+      $cm="$env:appveyor_build_folder\..\cement\Cement.Net\bin\Release\cm.exe"
+      cd $env:appveyor_build_folder\..
+      & $cm init
+
+      $wc = New-Object System.Net.WebClient
+      $wc.DownloadFile("https://raw.githubusercontent.com/vostok/cement-modules/master/settings", "$env:USERPROFILE\.cement\settings")
+
+      cd $env:appveyor_build_folder
+      echo update-deps
+      & $cm update-deps
+      echo build-deps
+      & $cm build-deps
+      echo dotnet restore
+      dotnet restore
 configuration: Release
 after_build:
-  - ps: if ($env:appveyor_repo_branch -eq "master") { Get-ChildItem $env:appveyor_build_folder\Vostok.Contrails.Client\bin\Release\Vostok.Contrails.Client.*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name } }
-test_script:
-  - ps: dotnet test "$env:appveyor_build_folder\Vostok.Contrails.Client.Tests\Vostok.Contrails.Client.Tests.csproj" --logger "trx;LogFileName=contrails-client-tests.trx"
-after_test:
   - ps: |
-      $wc = New-Object 'System.Net.WebClient'
-      $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:appveyor_job_id)", "$env:appveyor_build_folder\Vostok.Contrails.Client.Tests\TestResults\contrails-client-tests.trx")
+      $cm="$env:appveyor_build_folder\..\cement\Cement.Net\bin\Release\cm.exe"
+      $proj="Vostok.Contrails.Client.csproj"
+      & $cm pack $proj
+      $prbranch = "$env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH"
+      if ($prbranch -eq "")
+      {
+        $csprojs = $env:appveyor_build_folder | Get-ChildItem -Recurse -Filter "*.csproj"
+        foreach($csproj in $csprojs)
+        {
+          $name = $csproj.BaseName
+          $nupkgs = Get-ChildItem $env:appveyor_build_folder\$name\bin\Release\$name.*.nupkg
+          if ($nupkgs)
+          {
+            $nupkgs | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+          }          
+        }
+      }

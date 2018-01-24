@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Configurations>Debug;Release;Client</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,9 +13,23 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" version="3.1.0" />
-    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000346" />
     <PackageReference Include="Vostok.Instrumentation.AspNetCore" Version="1.0.0-pre000115" />
     <PackageReference Include="Vostok.Logging.Serilog" Version="1.0.0-pre000115" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Vostok.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.Instrumentation.AspNetCore">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.instrumentation.aspnetcore\Vostok.Instrumentation.AspNetCore\bin\Release\netstandard2.0\Vostok.Instrumentation.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.Logging.Serilog">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.logging.serilog\Vostok.Logging.Serilog\bin\Release\netstandard2.0\Vostok.Logging.Serilog.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

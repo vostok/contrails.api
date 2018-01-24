@@ -1,28 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Contrails.Api", "Vostok.Contrails.Api\Vostok.Contrails.Api.csproj", "{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Contrails.Client", "Vostok.Contrails.Client\Vostok.Contrails.Client.csproj", "{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vostok.Contrails.Client.Tests", "Vostok.Contrails.Client.Tests\Vostok.Contrails.Client.Tests.csproj", "{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Contrails.Client.Tests", "Vostok.Contrails.Client.Tests\Vostok.Contrails.Client.Tests.csproj", "{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Client|Any CPU = Client|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}.Client|Any CPU.ActiveCfg = Client|Any CPU
 		{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Client|Any CPU.ActiveCfg = Client|Any CPU
+		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Client|Any CPU.Build.0 = Client|Any CPU
 		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A31F7BB-D7D8-4750-B7CB-F33C0A7D2259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}.Client|Any CPU.ActiveCfg = Client|Any CPU
 		{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF42BD0-71A6-49E6-BE55-107C4D5B5BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU

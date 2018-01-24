@@ -8,12 +8,19 @@
     <Product>Vostok</Product>
     <RootNamespace>Vostok.Contrails.Client</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Configurations>Debug;Release;Client</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CassandraCSharpDriver" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000346" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Vostok.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
