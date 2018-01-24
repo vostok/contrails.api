@@ -23,6 +23,7 @@ full-build:
     - Vostok.Contrails.Client/bin/Release/netstandard2.0/Vostok.Contrails.Client.dll
 
   deps:
+    - vostok.hosting.core
     - vostok.core
     - vostok.hosting
     - vostok.instrumentation.aspnetcore

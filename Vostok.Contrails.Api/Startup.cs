@@ -78,7 +78,7 @@ namespace Vostok.Contrails.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
-            app.UseVostokLogging().UseVostokSystemMetrics(FlushMetricsInterval);
+            //app.UseVostokLogging().UseVostokSystemMetrics(FlushMetricsInterval);
             log.Info("Configured app");
         }
 

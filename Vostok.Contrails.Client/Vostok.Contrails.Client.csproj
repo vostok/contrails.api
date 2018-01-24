@@ -7,7 +7,6 @@
     <Company>SKB Kontur</Company>
     <Product>Vostok</Product>
     <RootNamespace>Vostok.Contrails.Client</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Configurations>Debug;Release;Client</Configurations>
   </PropertyGroup>
 
