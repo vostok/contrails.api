@@ -1,20 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Configurations>Debug;Release;Client</Configurations>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" version="3.1.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Vostok.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -28,14 +25,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vostok.logging.serilog\Vostok.Logging.Serilog\bin\Release\netstandard2.0\Vostok.Logging.Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Vostok.Hosting">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.hosting\Vostok.Hosting\bin\Release\netstandard2.0\Vostok.Hosting.dll</HintPath>
+    </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Vostok.Contrails.Client\Vostok.Contrails.Client.csproj" />
   </ItemGroup>
-
 </Project>
