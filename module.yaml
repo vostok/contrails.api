@@ -12,6 +12,9 @@ client *default:
   build:
     configuration: Client
 
+  install:
+    - module vostok.core
+
   deps:
     - vostok.core
 
