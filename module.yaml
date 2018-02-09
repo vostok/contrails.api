@@ -23,6 +23,7 @@ api:
     configuration: Api
 
   deps:
+    - vostok.airlock.client
     - vostok.core
     - vostok.hosting.core
     - vostok.hosting
