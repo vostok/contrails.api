@@ -7,8 +7,10 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Vostok.Commons.Extensions.UnitConvertions;
 using Vostok.Contrails.Client;
+using Vostok.Hosting;
 using Vostok.Instrumentation.AspNetCore;
 using Vostok.Logging;
+using Vostok.Logging.Logs;
 using Vostok.Logging.Serilog;
 using Vostok.Metrics;
 using Vostok.Metrics.Meters;
@@ -35,7 +37,8 @@ namespace Vostok.Contrails.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ContrailsClientSettings>(options => Configuration.GetSection("ContrailsClient").Bind(options));
+	        services.AddSingleton(x => x.GetRequiredService<IVostokHostingEnvironment>().Log ?? new SilentLog());
+			services.Configure<ContrailsClientSettings>(options => Configuration.GetSection("ContrailsClient").Bind(options));
             services.AddMvc()
                 .AddJsonOptions(
                     opt =>

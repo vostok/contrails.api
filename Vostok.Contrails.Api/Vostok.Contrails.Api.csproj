@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -33,6 +33,18 @@
     <Reference Include="Vostok.Hosting.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vostok.hosting.core\Vostok.Hosting.Core\bin\Release\netstandard2.0\Vostok.Hosting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.Airlock.Client">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.airlock.client\Vostok.Airlock.Client\bin\Release\netstandard2.0\Vostok.Airlock.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.ClusterClient">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.clusterclient\Vostok.ClusterClient\bin\Release\netstandard2.0\Vostok.ClusterClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.ClusterClient.Transport.Http">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.clusterclient.transport.http\Vostok.ClusterClient.Transport.Http\bin\Release\netstandard2.0\Vostok.ClusterClient.Transport.Http.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
