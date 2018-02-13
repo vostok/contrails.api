@@ -21,7 +21,7 @@ namespace Vostok.Contrails.Api
         private static IVostokHost BuildVostokHost(params string[] args)
         {
             return new VostokHostBuilder<Application>()
-                .SetServiceInfo("vostok", "frontier")
+                .SetServiceInfo("Vostok", "ContrailsApi")
                 .ConfigureAppConfiguration(configurationBuilder =>
                 {
                     configurationBuilder.AddCommandLine(args);
