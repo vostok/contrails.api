@@ -1,6 +1,4 @@
-FROM skbkontur/cement:latest AS build-env
-
-RUN curl https://raw.githubusercontent.com/vostok/cement-modules/master/settings -L > ~/.cement/settings
+FROM vstk/cement:latest AS build-env
 
 WORKDIR /app
 COPY . ./
