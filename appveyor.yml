@@ -63,7 +63,7 @@ configuration: Release
 after_build:
   - ps: |
       $cm="$env:appveyor_build_folder\..\cement\Cement.Net\bin\Release\cm.exe"
-      $proj="Vostok.Contrails.Client.csproj"
+      $proj="Vstk.Contrails.Client.csproj"
       & $cm pack $proj
       $prbranch = "$env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH"
       if ($prbranch -eq "")

@@ -5,9 +5,9 @@ using Cassandra;
 using Cassandra.Data.Linq;
 using Cassandra.Mapping;
 using Newtonsoft.Json;
-using Vostok.Tracing;
+using Vstk.Tracing;
 
-namespace Vostok.Contrails.Client
+namespace Vstk.Contrails.Client
 {
     public interface ICassandraDataScheme
     {

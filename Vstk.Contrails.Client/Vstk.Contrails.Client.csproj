@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <AssemblyName>Vostok.Contrails.Client</AssemblyName>
-    <Authors>Vostok team</Authors>
+    <AssemblyName>Vstk.Contrails.Client</AssemblyName>
+    <Authors>Vstk team</Authors>
     <Company>SKB Kontur</Company>
-    <Product>Vostok</Product>
-    <RootNamespace>Vostok.Contrails.Client</RootNamespace>
+    <Product>Vstk</Product>
+    <RootNamespace>Vstk.Contrails.Client</RootNamespace>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Vostok.Core">
+    <Reference Include="Vstk.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
+      <HintPath>..\..\vstk.core\Vstk.Core\bin\Release\netstandard2.0\Vstk.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
+    <PackageReference Include="Serilog.Sinks.Console" version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vstk.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.core\Vstk.Core\bin\Release\netstandard2.0\Vstk.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.Instrumentation.AspNetCore">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.instrumentation.aspnetcore\Vstk.Instrumentation.AspNetCore\bin\Release\netstandard2.0\Vstk.Instrumentation.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.Logging.Serilog">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.logging.serilog\Vstk.Logging.Serilog\bin\Release\netstandard2.0\Vstk.Logging.Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.Hosting">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.hosting\Vstk.Hosting\bin\Release\netstandard2.0\Vstk.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.Hosting.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.hosting.core\Vstk.Hosting.Core\bin\Release\netstandard2.0\Vstk.Hosting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.Airlock.Client">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.airlock.client\Vstk.Airlock.Client\bin\Release\netstandard2.0\Vstk.Airlock.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.ClusterClient">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.clusterclient\Vstk.ClusterClient\bin\Release\netstandard2.0\Vstk.ClusterClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Vstk.ClusterClient.Transport.Http">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vstk.clusterclient.transport.http\Vstk.ClusterClient.Transport.Http\bin\Release\netstandard2.0\Vstk.ClusterClient.Transport.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vstk.Contrails.Client\Vstk.Contrails.Client.csproj" />
+  </ItemGroup>
+</Project>

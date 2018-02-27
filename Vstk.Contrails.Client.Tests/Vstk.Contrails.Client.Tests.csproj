@@ -15,18 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Vostok.Core">
+    <Reference Include="Vstk.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
+      <HintPath>..\..\vstk.core\Vstk.Core\bin\Release\netstandard2.0\Vstk.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Vostok.Airlock.Client">
+    <Reference Include="Vstk.Airlock.Client">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vostok.airlock.client\Vostok.Airlock.Client\bin\Release\netstandard2.0\Vostok.Airlock.Client.dll</HintPath>
+      <HintPath>..\..\vstk.airlock.client\Vstk.Airlock.Client\bin\Release\netstandard2.0\Vstk.Airlock.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vostok.Contrails.Client\Vostok.Contrails.Client.csproj" />
+    <ProjectReference Include="..\Vstk.Contrails.Client\Vstk.Contrails.Client.csproj" />
   </ItemGroup>
 
 </Project>

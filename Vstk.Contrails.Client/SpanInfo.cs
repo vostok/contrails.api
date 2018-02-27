@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vostok.Contrails.Client
+namespace Vstk.Contrails.Client
 {
     [Cassandra.Mapping.Attributes.Table]
     public class SpanInfo

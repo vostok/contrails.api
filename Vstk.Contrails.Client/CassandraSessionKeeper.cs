@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using Cassandra;
 
-namespace Vostok.Contrails.Client
+namespace Vstk.Contrails.Client
 {
     public class CassandraSessionKeeper : IDisposable
     {

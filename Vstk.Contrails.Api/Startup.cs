@@ -1,21 +1,21 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Serilog;
-using Vostok.Commons.Extensions.UnitConvertions;
-using Vostok.Contrails.Client;
-using Vostok.Hosting;
-using Vostok.Instrumentation.AspNetCore;
-using Vostok.Logging;
-using Vostok.Logging.Logs;
-using Vostok.Logging.Serilog;
-using Vostok.Metrics;
-using Vostok.Metrics.Meters;
+using Vstk.Commons.Extensions.UnitConvertions;
+using Vstk.Contrails.Client;
+using Vstk.Hosting;
+using Vstk.Instrumentation.AspNetCore;
+using Vstk.Logging;
+using Vstk.Logging.Logs;
+using Vstk.Logging.Serilog;
+using Vstk.Metrics;
+using Vstk.Metrics.Meters;
 
-namespace Vostok.Contrails.Api
+namespace Vstk.Contrails.Api
 {
     public class MetricContainer
     {

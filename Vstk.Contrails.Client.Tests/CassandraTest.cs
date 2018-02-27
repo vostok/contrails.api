@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Cassandra;
 using NUnit.Framework;
-using Vostok.Tracing;
+using Vstk.Tracing;
 
-namespace Vostok.Contrails.Client.Tests
+namespace Vstk.Contrails.Client.Tests
 {
     public class CassandraTest
     {

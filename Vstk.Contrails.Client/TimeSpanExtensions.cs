@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Vostok.Contrails.Client
+namespace Vstk.Contrails.Client
 {
     public static class TimeSpanExtensions
     {
