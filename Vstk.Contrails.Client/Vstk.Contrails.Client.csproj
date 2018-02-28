@@ -3,11 +3,15 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Vstk.Contrails.Client</AssemblyName>
-    <Authors>Vstk team</Authors>
+    <Authors>Vostok team</Authors>
     <Company>SKB Kontur</Company>
-    <Product>Vstk</Product>
+    <Product>Vostok</Product>
     <RootNamespace>Vstk.Contrails.Client</RootNamespace>
     <Configurations>Debug;Release</Configurations>
+    <Copyright>Copyright © SKB Kontur 2017-2018</Copyright>
+    <PackageProjectUrl>https://github.com/vostok/vstk.contrails.api</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/vostok/vstk.contrails.api/blob/master/LICENSE</PackageLicenseUrl>
+    <Description>Client for sending tracing events, see http://vostok.tools/</Description>
   </PropertyGroup>
 
   <ItemGroup>
