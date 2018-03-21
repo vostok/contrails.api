@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <AssemblyName>Vstk.Contrails.Client</AssemblyName>
+    <AssemblyName>Vostok.Contrails.Client</AssemblyName>
     <Authors>Vostok team</Authors>
     <Company>SKB Kontur</Company>
     <Product>Vostok</Product>
-    <RootNamespace>Vstk.Contrails.Client</RootNamespace>
+    <RootNamespace>Vostok.Contrails.Client</RootNamespace>
     <Configurations>Debug;Release</Configurations>
     <Copyright>Copyright © SKB Kontur 2017-2018</Copyright>
-    <PackageProjectUrl>https://github.com/vostok/vstk.contrails.api</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/vostok/vstk.contrails.api/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/vostok/vostok.contrails.api</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/vostok/vostok.contrails.api/blob/master/LICENSE</PackageLicenseUrl>
     <Description>Client for sending tracing events, see http://vostok.tools/</Description>
   </PropertyGroup>
 
@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Vstk.Core">
+    <Reference Include="Vostok.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vstk.core\Vstk.Core\bin\Release\netstandard2.0\Vstk.Core.dll</HintPath>
+      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

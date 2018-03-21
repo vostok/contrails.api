@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Vstk.Commons.Extensions.UnitConvertions;
+using Vostok.Commons.Extensions.UnitConvertions;
 
-namespace Vstk.Contrails.Client
+namespace Vostok.Contrails.Client
 {
     public class CassandraRetryExecutionStrategySettings
     {

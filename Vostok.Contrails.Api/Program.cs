@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
-using Vstk.Hosting;
-using Vstk.Instrumentation.AspNetCore;
-using Vstk.Logging;
-using Vstk.Logging.Serilog;
+using Vostok.Hosting;
+using Vostok.Instrumentation.AspNetCore;
+using Vostok.Logging;
+using Vostok.Logging.Serilog;
 
-namespace Vstk.Contrails.Api
+namespace Vostok.Contrails.Api
 {
     public class Program
     {

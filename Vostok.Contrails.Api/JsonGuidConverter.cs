@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Vstk.Contrails.Api
+namespace Vostok.Contrails.Api
 {
     public class JsonGuidConverter : JsonConverter
     {

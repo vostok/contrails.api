@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Cassandra;
 using Cassandra.Data.Linq;
 using Newtonsoft.Json;
-using Vstk.Logging;
-using Vstk.RetriableCall;
-using Vstk.Tracing;
+using Vostok.Logging;
+using Vostok.RetriableCall;
+using Vostok.Tracing;
 
-namespace Vstk.Contrails.Client
+namespace Vostok.Contrails.Client
 {
     public class ContrailsClientSettings
     {

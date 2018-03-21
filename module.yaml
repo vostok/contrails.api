@@ -1,36 +1,36 @@
 default:
   build:
-    target: Vstk.ContrailsApi.sln
+    target: Vostok.ContrailsApi.sln
     configuration: Client
     tool:
       name: dotnet
 
   install:
-    - Vstk.Contrails.Client/bin/Release/netstandard2.0/Vstk.Contrails.Client.dll
+    - Vostok.Contrails.Client/bin/Release/netstandard2.0/Vostok.Contrails.Client.dll
 
 client *default:
   build:
     configuration: Client
 
   install:
-    - module vstk.core
+    - module vostok.core
 
   deps:
-    - vstk.core
+    - vostok.core
 
 api:
   build:
     configuration: Api
 
   deps:
-    - vstk.clusterclient.transport.http
-    - vstk.clusterclient
-    - vstk.airlock.client
-    - vstk.core
-    - vstk.hosting.core
-    - vstk.hosting
-    - vstk.instrumentation.aspnetcore
-    - vstk.logging.serilog
+    - vostok.clusterclient.transport.http
+    - vostok.clusterclient
+    - vostok.airlock.client
+    - vostok.core
+    - vostok.hosting.core
+    - vostok.hosting
+    - vostok.instrumentation.aspnetcore
+    - vostok.logging.serilog
 
 full-build > api,client:
 

@@ -60,7 +60,7 @@ install:
 configuration: Release
 after_build:
   - ps: |
-      $proj="Vstk.Contrails.Client.csproj"
+      $proj="Vostok.Contrails.Client.csproj"
       & $env:cm pack $proj
   - ps: |
       $prbranch = "$env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH"

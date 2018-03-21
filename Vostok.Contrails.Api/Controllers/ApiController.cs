@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Vstk.Contrails.Client;
-using Vstk.Logging;
-using Vstk.Tracing;
+using Vostok.Contrails.Client;
+using Vostok.Logging;
+using Vostok.Tracing;
 
-namespace Vstk.Contrails.Api.Controllers
+namespace Vostok.Contrails.Api.Controllers
 {
     public class TracesByIdResponce
     {
