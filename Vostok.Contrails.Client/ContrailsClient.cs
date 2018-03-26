@@ -25,8 +25,6 @@ namespace Vostok.Contrails.Client
         Task<IEnumerable<Span>> GetTracesById(Guid traceId, DateTimeOffset? fromTimestamp, Guid? fromSpan, DateTimeOffset? toTimestamp, Guid? toSpan, bool ascending, int limit = 1000);
     }
 
-    //public class TracesOffset
-
     public class ContrailsClient : IDisposable, IContrailsClient
     {
         private readonly ILog log;

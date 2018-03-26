@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Serilog;
 using Vostok.Commons.Extensions.UnitConvertions;
 using Vostok.Contrails.Client;
@@ -37,26 +39,34 @@ namespace Vostok.Contrails.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-	        services.AddSingleton(x => x.GetRequiredService<IVostokHostingEnvironment>().Log ?? new SilentLog());
-			services.Configure<ContrailsClientSettings>(options => Configuration.GetSection("ContrailsClient").Bind(options));
+            services.AddSingleton(x => x.GetRequiredService<IVostokHostingEnvironment>().Log ?? new ConsoleLog());
+            services.Configure<ContrailsClientSettings>(options =>
+            {
+                Configuration.GetSection("ContrailsClient").Bind(options);
+                var envCassandraEndpoints = Environment.GetEnvironmentVariable("contrails_api_cassandra_endpoints");
+                if (!string.IsNullOrWhiteSpace(envCassandraEndpoints))
+                {
+                    options.CassandraNodes = envCassandraEndpoints.Split(";", StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => x).ToArray();
+                }
+            });
             services.AddMvc()
                 .AddJsonOptions(
-                    opt =>
-                    {
-                        opt.SerializerSettings.Converters.Add(new JsonGuidConverter());
-                    });
+                    opt => { opt.SerializerSettings.Converters.Add(new JsonGuidConverter()); });
             services.AddSingleton<Func<IContrailsClient>>(x =>
             {
                 var log = x.GetService<ILog>();
-                var configuration = x.GetService<IOptions<ContrailsClientSettings>>();
+                var contrailsClientSettings = x.GetService<IOptions<ContrailsClientSettings>>().Value;
+                log.Debug("Client settings: " + JsonConvert.SerializeObject(contrailsClientSettings, Formatting.Indented) );
                 return () =>
                 {
                     if (contrailsClient != null)
                         return contrailsClient;
                     lock (this)
                     {
-                        contrailsClient = new ContrailsClient(configuration.Value, log);
+                        contrailsClient = new ContrailsClient(contrailsClientSettings, log);
                     }
+
                     return contrailsClient;
                 };
             });
@@ -64,10 +74,10 @@ namespace Vostok.Contrails.Api
                 x =>
                 {
                     var rootScope = x.GetService<IMetricScope>();
-                    var metricScope = rootScope.WithTag(MetricsTagNames.Type,"api");
+                    var metricScope = rootScope.WithTag(MetricsTagNames.Type, "api");
                     return new MetricContainer
                     {
-                        SuccessCounter = metricScope.WithTag("status","200").Counter(FlushMetricsInterval, "requests"),
+                        SuccessCounter = metricScope.WithTag("status", "200").Counter(FlushMetricsInterval, "requests"),
                         ErrorCounter = metricScope.WithTag("status", "500").Counter(FlushMetricsInterval, "requests")
                     };
                 });
@@ -80,6 +90,7 @@ namespace Vostok.Contrails.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseMvc();
             //app.UseVostokLogging().UseVostokSystemMetrics(FlushMetricsInterval);
             log.Info("Configured app");
