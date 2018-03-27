@@ -34,7 +34,7 @@ namespace Vostok.Contrails.Api
                     if (context.Configuration.GetSection("hostLog").GetValue<bool>("console"))
                     {
                         loggerConfiguration = loggerConfiguration
-                            .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {Level:u3} [{Thread}] {Message:l}{NewLine}{Exception}", restrictedToMinimumLevel: LogEventLevel.Information);
+                            .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss.fff} {Level:u3} [{Thread}] {Message:l}{NewLine}{Exception}");
                     }
                     var pathFormat = context.Configuration.GetSection("hostLog")["pathFormat"];
                     if (!string.IsNullOrEmpty(pathFormat))
