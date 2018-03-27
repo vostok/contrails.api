@@ -40,23 +40,20 @@ namespace Vostok.Contrails.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(x => x.GetRequiredService<IVostokHostingEnvironment>().Log ?? new ConsoleLog());
-            services.Configure<ContrailsClientSettings>(options =>
-            {
-                Configuration.GetSection("ContrailsClient").Bind(options);
-                var envCassandraEndpoints = Environment.GetEnvironmentVariable("contrails_api_cassandra_endpoints");
-                if (!string.IsNullOrWhiteSpace(envCassandraEndpoints))
-                {
-                    options.CassandraNodes = envCassandraEndpoints.Split(";", StringSplitOptions.RemoveEmptyEntries)
-                        .Select(x => x).ToArray();
-                }
-            });
+            services.Configure<ContrailsClientSettings>(options => Configuration.GetSection("ContrailsClient").Bind(options));
             services.AddMvc()
                 .AddJsonOptions(
                     opt => { opt.SerializerSettings.Converters.Add(new JsonGuidConverter()); });
-            services.AddSingleton<Func<IContrailsClient>>(x =>
+            services.AddSingleton<Func<IContrailsClient>>(serviceProvider =>
             {
-                var log = x.GetService<ILog>();
-                var contrailsClientSettings = x.GetService<IOptions<ContrailsClientSettings>>().Value;
+                var log = serviceProvider.GetService<ILog>();
+                var contrailsClientSettings = serviceProvider.GetService<IOptions<ContrailsClientSettings>>().Value;
+                var envCassandraEndpoints = Environment.GetEnvironmentVariable("contrails_api_cassandra_endpoints");
+                if (!string.IsNullOrWhiteSpace(envCassandraEndpoints))
+                {
+                    log.Info("load cassandra nodes from environment: " + envCassandraEndpoints);
+                    contrailsClientSettings.CassandraNodes = envCassandraEndpoints.Split(";", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                }
                 log.Debug("Client settings: " + JsonConvert.SerializeObject(contrailsClientSettings, Formatting.Indented) );
                 return () =>
                 {
