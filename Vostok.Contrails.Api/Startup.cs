@@ -48,7 +48,7 @@ namespace Vostok.Contrails.Api
             {
                 var log = serviceProvider.GetService<ILog>();
                 var contrailsClientSettings = serviceProvider.GetService<IOptions<ContrailsClientSettings>>().Value;
-                var envCassandraEndpoints = Environment.GetEnvironmentVariable("contrails_api_cassandra_endpoints");
+                var envCassandraEndpoints = Environment.GetEnvironmentVariable("CONTRAILS_API_CASSANDRA_ENDPOINTS");
                 if (!string.IsNullOrWhiteSpace(envCassandraEndpoints))
                 {
                     log.Info("load cassandra nodes from environment: " + envCassandraEndpoints);
