@@ -35,7 +35,7 @@ namespace Vostok.Contrails.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/findTrace")]
+        [Route("api/search")]
         public async Task<TracesByIdResponce> TracesById(Guid traceId, [Bind(Prefix = "fromTs")] DateTimeOffset? fromTimestamp, Guid? fromSpan, [Bind(Prefix = "toTs")] DateTimeOffset? toTimestamp, Guid? toSpan, int limit = 1000, bool ascending = true)
         {
             try
