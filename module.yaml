@@ -13,10 +13,10 @@ client *default:
     configuration: Client
 
   install:
-    - module vostok.core
+    - module vostok.legacy.core
 
   deps:
-    - vostok.core
+    - vostok.legacy.core
 
 api:
   build:
