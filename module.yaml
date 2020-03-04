@@ -23,14 +23,10 @@ api:
     configuration: Api
 
   deps:
-    - vostok.clusterclient.transport.http
-    - vostok.clusterclient
-    - vostok.airlock.client
-    - vostok.core
-    - vostok.hosting.core
-    - vostok.hosting
-    - vostok.instrumentation.aspnetcore
-    - vostok.logging.serilog
+    - vostok.legacy.clusterclient.transport.http
+    - vostok.legacy.clusterclient
+    - vostok.legacy.airlock.client
+    - vostok.legacy.core
 
 full-build > api,client:
 
